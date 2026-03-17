@@ -12,6 +12,10 @@
     ]
   },
   "devDependencies": {
-    "@mariozechner/pi-coding-agent": "*"
+    "@mariozechner/pi-coding-agent": "*",
+    "@types/picomatch": "^4.0.2"
+  },
+  "dependencies": {
+    "picomatch": "^4.0.3"
   }
 }
