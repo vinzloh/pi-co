@@ -10,22 +10,6 @@ description: Use this skill for TypeScript files including read, edit, refactor,
 ### TypeScript
 
 - **NEVER use inline imports** - no `await import("./foo.js")`, no `import("pkg").Type` in type positions, no dynamic imports for types.
-- **Never mix type imports with value imports** - Use separate `import type` statements
-
-  ```typescript
-  // ❌ Avoid - type import mixed with value imports
-  import {
-    Box,
-    type ButtonProps,
-  } from '@mui/material';
-
-  // ✅ Use - separate import type statement
-  import type { ButtonProps } from '@mui/material';
-  import {
-    Box,
-  } from '@mui/material';
-  ```
-
 - **Avoid complex inline types**: Extract complex types into dedicated `type` or `interface` declarations
 - **Literal array `.includes()` pattern** - When checking if a variable exists in a hardcoded array (e.g., `['a', 'b', 'c'].includes(variable)`), use `arrayOf` (search in current folder and subfolders).
 
