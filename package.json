@@ -1,0 +1,17 @@
+{
+  "name": "pi-co",
+  "version": "1.0.0",
+  "scripts": {},
+  "keywords": [],
+  "pi": {
+    "extensions": [
+      "./extensions"
+    ],
+    "skills": [
+      "./skills"
+    ]
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  }
+}
