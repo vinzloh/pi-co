@@ -9,12 +9,13 @@ description: Use this skill for TypeScript files including read, edit, refactor,
 
 ### Import Patterns
 
-- **Namespace imports**: When a file uses `import * as React from 'react'`, maintain this pattern. Do not change to named imports unless:
-  - The namespace is no longer used (e.g., no `React.*` references remain after other refactors)
+- **Namespace imports**: When a file uses `import * as Namespace from 'module'`, maintain this pattern. Do not change to named imports unless:
+  - The namespace is no longer used (e.g., no `Namespace.*` references remain after other refactors)
   - The file is being fully rewritten
   - The user explicitly requests the change
+  - *Common examples*: `import * as React from 'react'`, `import * as RadixDialog from '@radix-ui/react-dialog'`
 
-- **Named imports**: Use when adding new React APIs to a file that doesn't already have the React namespace imported
+- **Named imports**: Use when adding new APIs to a file that doesn't already have a namespace import established
 
 ### React Hook Patterns
 
