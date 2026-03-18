@@ -1,5 +1,5 @@
 ---
-name: janitor
+name: typescript-critic
 description: Use this skill when working with TypeScript files 
 ---
 
