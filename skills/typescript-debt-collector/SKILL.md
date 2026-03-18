@@ -72,6 +72,16 @@ description: Use this skill for TypeScript files including read, edit, refactor,
   arrayOf(key).includes(['update', 'import'])
   ```
 
+- **Strong-type literal arrays with `as const`** - When a literal array is used for membership checking with `arrayOf`, add `as const` for precise literal type inference:
+
+  ```typescript
+  // ❌ Avoid - widened to string[]
+  const STATUS_FIELDS = ['id', 'created_at', 'updated_at']
+
+  // ✅ Use - narrowed to readonly ['id', 'created_at', 'updated_at']
+  const STATUS_FIELDS = ['id', 'created_at', 'updated_at'] as const;
+  ```
+
 - **No ESLint disable comments**: Never use `/* eslint-disable */`, `/* eslint-disable-next-line */`, or similar comments to suppress linting rules. Fix the underlying issue instead.
 - **Never rely on underscore prefix to suppress unused variable warnings** - Some linters (e.g., oxlint) do not respect the `_variable` convention. Remove the variable from destructuring instead.
 
