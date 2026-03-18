@@ -189,14 +189,17 @@ export function loadState(configPath: string = DEFAULT_CONFIG_PATH): RuntimeStat
     };
   } catch (error) {
     const isMissingFile = error instanceof Error && "code" in error && error.code === "ENOENT";
+    const isDefaultPath = configPath === DEFAULT_CONFIG_PATH;
 
     return {
       configPath,
       config: DEFAULT_CONFIG,
       rules: (DEFAULT_CONFIG.patterns ?? []).map(compileRule),
-      error: isMissingFile
-        ? `pi-cloak config not found at ${configPath}`
-        : `pi-cloak failed to load ${configPath}: ${error instanceof Error ? error.message : String(error)}`,
+      error: isMissingFile && isDefaultPath
+        ? undefined
+        : isMissingFile
+          ? `pi-cloak config not found at ${configPath}`
+          : `pi-cloak failed to load ${configPath}: ${error instanceof Error ? error.message : String(error)}`,
     };
   }
 }
