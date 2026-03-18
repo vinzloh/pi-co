@@ -15,10 +15,13 @@
     ]
   },
   "devDependencies": {
-    "@mariozechner/pi-coding-agent": "*",
     "@types/picomatch": "^4.0.2"
   },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
   "dependencies": {
+    "@mariozechner/pi-coding-agent": "^0.59.0",
     "picomatch": "^4.0.3"
   }
 }
