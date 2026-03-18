@@ -99,6 +99,13 @@ description: Use this skill when working with TypeScript files
 - **Single responsibility**: Each source file should have a clear, focused scope/purpose
 - **Split large files**: Break files when they become large or handle too many concerns
 
+### Destructuring vs Dot Notation
+
+- **Match existing patterns**: Follow the existing codebase convention. Do not introduce destructuring or dot notation changes solely for stylistic preference.
+- **Minimal changes**: When editing existing code, preserve the original access pattern.
+- **Destructuring is appropriate when**: Adding new required properties that would require multiple accesses.
+- **Dot notation is appropriate when**: The existing code uses it, or when accessing multiple nested properties infrequently.
+
 ### Comments
 
 - **Avoid unnecessary comments**: Code should be self-explanatory

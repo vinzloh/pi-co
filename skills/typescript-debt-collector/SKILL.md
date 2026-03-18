@@ -20,18 +20,17 @@ description: Use this skill for TypeScript files including read, edit, refactor,
 
 - **Do not move or extract inline hooks for stylistic preference**: If `React.useMemo` or `React.useCallback` appears inline (e.g., inside an object literal, JSX
  prop, or hook configuration), keep it inline. Only extract if required for behavior correctness (e.g., adding dependencies, fixing a bug).
+- **Keep existing react-hook-form patterns**: When a form uses `values` property (controlled form), maintain this pattern. Do not extract to `defaultValues` for
+ stylistic preference alone.
 
-     ```typescript
-     // ✅ Keep as-is when already inline
-     useForm({
-       values: {
-         data: React.useMemo(() => compute(), [dep])
-       }
-     })
+    ```typescript
+    // ✅ Keep as-is when already inline
+    useForm({ values: { data: React.useMemo(() => compute(), [dep]) } })
 
-     // ❌ Do not extract for style alone
-     const memoized = React.useMemo(() => compute(), [dep])
-     useForm({ values: { data: memoized } })
+    // ❌ Do not extract for style alone
+    const defaultValues = React.useMemo(() => compute(), [dep])
+    useForm({ defaultValues })
+
 
 ### Pattern Matching with ts-pattern
 
