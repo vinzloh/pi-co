@@ -79,7 +79,12 @@ description: Use this skill when working with TypeScript files
 - Read enough context before editing; avoid thrashing
 - After edits, run a lightweight verification step when relevant
 
-## Scope Control
+### **CRITICAL** Tool Usage Rules **CRITICAL**
+
+- NEVER use sed/cat to read a file or a range of a file. Always use the read tool (use offset + limit for ranged reads).
+- You MUST read every file you modify in full before editing.
+
+# Scope Control
 
 - Avoid over-engineering; do not add features, abstractions, configurability, or refactors beyond what the task requires
 - Prefer the simplest general solution that correctly solves the problem
