@@ -79,6 +79,7 @@ description: Use this skill for TypeScript files including read, edit, refactor,
 
 ### TypeScript
 
+- **Never compromise type safety**: no `any`, no non-null assertion operator (`!`), no unsafe type assertions
 - **Avoid complex inline types**: Extract complex types into dedicated `type` or `interface` declarations
 - **Literal array `.includes()` pattern** - When checking if a variable exists in a hardcoded array (e.g., `['a', 'b', 'c'].includes(variable)`), use `arrayOf` (search in current folder and subfolders).
 
