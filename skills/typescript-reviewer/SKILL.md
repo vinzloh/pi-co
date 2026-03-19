@@ -3,119 +3,111 @@ name: typescript-reviewer
 description: Use this skill for TypeScript files including read, edit, refactor, write.
 ---
 
-## Coding Practices
+## Core Principles
 
-- Check `node_modules` for external API type definitions instead of guessing
+- **Never compromise type safety**: No `any`, no non-null assertions (`!`), no unsafe type casts
+- **Check `node_modules`** for external API type definitions instead of guessing
+- **Post-edit verification**: Run `pnpm --silent lint` then `pnpm --silent typecheck`
 
-### Import Patterns
+---
 
-- **Namespace imports**: When a file uses `import * as Namespace from 'module'`, maintain this pattern. Do not change to named imports unless:
-  - The namespace is no longer used (e.g., no `Namespace.*` references remain after other refactors)
-  - The file is being fully rewritten
-  - The user explicitly requests the change
-  - *Common examples*: `import * as React from 'react'`, `import * as RadixDialog from '@radix-ui/react-dialog'`
+## Import Patterns
 
-- **Named imports**: Use when adding new APIs to a file that doesn't already have a namespace import established
+| Pattern | Use When |
+|---------|----------|
+| `import * as Namespace` | File already uses namespace imports (e.g., `React.useMemo`). **Do not convert** to named imports unless: namespace no longer used, full file rewrite, or user explicitly requests it |
+| Named imports (`import { x }`) | Adding new APIs to files without established namespace patterns |
 
-### React Hook Patterns
+> Common namespace examples: `import * as React from 'react'`, `import * as RadixDialog from '@radix-ui/react-dialog'`
 
-- **Do not move or extract inline hooks for stylistic preference**: If `React.useMemo` or `React.useCallback` appears inline (e.g., inside an object literal, JSX
- prop, or hook configuration), keep it inline. Only extract if required for behavior correctness (e.g., adding dependencies, fixing a bug).
-- **Keep existing react-hook-form patterns**: When a form uses `values` property (controlled form), maintain this pattern. Do not extract to `defaultValues` for
- stylistic preference alone.
+---
 
-    ```typescript
-    // ✅ Keep as-is when already inline
-    useForm({ values: { data: React.useMemo(() => compute(), [dep]) } })
+## React Patterns
 
-    // ❌ Do not extract for style alone
-    const defaultValues = React.useMemo(() => compute(), [dep])
-    useForm({ defaultValues })
+### Hooks: Keep Inline
+- **Do not extract** inline hooks (`React.useMemo`, `React.useCallback`) for stylistic preference
+- Keep them inline in object literals, JSX props, or hook configurations
+- Only extract if required for behavior correctness (bug fixes, dependency changes)
 
+```typescript
+// ✅ Keep as-is
+useForm({ values: { data: React.useMemo(() => compute(), [dep]) } })
 
-### Pattern Matching with ts-pattern
+// ❌ Don't extract for style alone
+const defaultValues = React.useMemo(() => compute(), [dep])
+useForm({ defaultValues })
+```
 
-- **Use `match` from `ts-pattern`** when you have:
-  - Multiple conditional branches (2+ conditions)
-  - Complex conditions involving multiple variables
-  - Pattern matching on object properties
-  - Exhaustive checks needed
+### Forms: Preserve Patterns
+- When a form uses `values` (controlled), maintain it. Don't convert to `defaultValues` for style.
 
-- **Prefer `match` over nested ternaries or if/else chains**:
+---
 
-     ```typescript
-     // ❌ Avoid - nested ternary
-     condition1 ? value1 : condition2 ? value2 : defaultValue
+## Control Flow (ts-pattern)
 
-     // ❌ Avoid - if/else chain
-     if (a && b) return x;
-     if (c) return y;
-     return z;
+Use `match` from `ts-pattern` when you have:
+- 2+ conditional branches
+- Complex conditions with multiple variables  
+- Pattern matching on object properties
+- Need exhaustive checks
 
-     // ✅ Use - match with patterns
-     match({ a, b, c })
-       .with({ a: true, b: true }, () => x)
-       .with({ c: true }, () => y)
-       .otherwise(() => z);
-     ```
+**Rules:**
+1. **Replace nested ternaries and if/else chains**
+2. **Match on source values**, not derived booleans
 
-- **Match on source values, not derived booleans**: Do not create intermediate boolean properties like `isV6Plan`. Instead, directly match on the original values in the pattern:
+```typescript
+// ❌ Avoid - nested ternary
+condition1 ? value1 : condition2 ? value2 : defaultValue
 
-     ```typescript
-     // ❌ Avoid - creating derived boolean props
-     match({
-       isV6Plan: planVersion === 6 && i18nLabel === 'back_in_stock_alert',
-       hasHelperText: helperText,
-     })
-       .with({ isV6Plan: true }, () => v6Text)
-       .with({ hasHelperText: true }, () => helperText)
+// ❌ Avoid - derived boolean props
+match({ isV6Plan: planVersion === 6 }).with({ isV6Plan: true }, ...)
 
-     // ✅ Use - match directly on source values
-     match({ planVersion, i18nLabel, helperText })
-       .with({ planVersion: 6, i18nLabel: 'back_in_stock_alert' }, () => v6Text)
-       .with({ helperText: true }, () => helperText)
-       .otherwise(() => defaultValue)
-     ```
+// ✅ Use - match on sources
+match({ planVersion, i18nLabel })
+  .with({ planVersion: 6, i18nLabel: 'back_in_stock_alert' }, ...)
+  .otherwise(...)
+```
 
-### TypeScript
+---
 
-- **Never compromise type safety**: no `any`, no non-null assertion operator (`!`), no unsafe type assertions
-- **Avoid complex inline types**: Extract complex types into dedicated `type` or `interface` declarations
-- **Literal array `.includes()` pattern** - When checking if a variable exists in a hardcoded array (e.g., `['a', 'b', 'c'].includes(variable)`), use `arrayOf` (search in current folder and subfolders).
+## Type Patterns
 
-  **Pattern:**
+### Literal Array Membership
+Use `arrayOf` utility (search current folder/subfolders) instead of `.includes()` on literal arrays:
 
-  ```typescript
-  // ❌ Avoid - literal array with includes
-  ['update', 'import'].includes(key)
+```typescript
+// ❌ Avoid
+['update', 'import'].includes(key)
 
-  // ✅ Use - arrayOf with flipped arguments
-  arrayOf(key).includes(['update', 'import'])
-  ```
+// ✅ Use
+arrayOf(key).includes(['update', 'import'])
+```
 
-- **Strong-type literal arrays with `as const`** - When a literal array is used for membership checking with `arrayOf`, add `as const` for precise literal type inference:
+Add `as const` for precise literal inference:
+```typescript
+// ❌ Widened to string[]
+const FIELDS = ['id', 'created_at']
 
-  ```typescript
-  // ❌ Avoid - widened to string[]
-  const STATUS_FIELDS = ['id', 'created_at', 'updated_at']
+// ✅ Narrowed to readonly ['id', 'created_at']
+const FIELDS = ['id', 'created_at'] as const
+```
 
-  // ✅ Use - narrowed to readonly ['id', 'created_at', 'updated_at']
-  const STATUS_FIELDS = ['id', 'created_at', 'updated_at'] as const;
-  ```
+### Complex Types
+Extract complex inline types into dedicated `type` or `interface` declarations
 
-- **No ESLint disable comments**: Never use `/* eslint-disable */`, `/* eslint-disable-next-line */`, or similar comments to suppress linting rules. Fix the underlying issue instead.
-- **Never rely on underscore prefix to suppress unused variable warnings** - Some linters (e.g., oxlint) do not respect the `_variable` convention. Remove the variable from destructuring instead.
+---
 
-  ```typescript
-  // ❌ Avoid - underscore prefix doesn't suppress the error
-  function Component({ unusedProp: _unused, ...props }: Props) {
-    // oxlint still reports: Parameter '_unused' is declared but never used
-  }
+## Code Quality
 
-  // ✅ Do - remove from destructuring if not needed
-  function Component(props: Props) {
-    // unusedProp stays in props
-  }
-  ```
+| Don't | Do Instead |
+|-------|-----------|
+| `/* eslint-disable */` comments | Fix the underlying issue |
+| `_unused` prefix for unused vars | Remove from destructuring entirely |
 
-- After edits, run in order 1. `pnpm --silent lint` then 2. `pnpm --silent typecheck` to verify
+```typescript
+// ❌ Underscore doesn't suppress oxlint
+function Component({ unusedProp: _unused, ...props }: Props) {}
+
+// ✅ Remove unused from destructuring
+function Component(props: Props) {}
+```
