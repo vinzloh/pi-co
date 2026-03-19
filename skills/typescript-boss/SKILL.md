@@ -1,5 +1,5 @@
 ---
-name: typescript-critic
+name: typescript-boss
 description: Use this skill when working with TypeScript files 
 ---
 

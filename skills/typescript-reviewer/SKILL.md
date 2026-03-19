@@ -1,5 +1,5 @@
 ---
-name: typescript-debt-collector
+name: typescript-reviewer
 description: Use this skill for TypeScript files including read, edit, refactor, write.
 ---
 
