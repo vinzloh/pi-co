@@ -2,8 +2,9 @@
 description: ...this typescript code
 ---
 
-Focus:
+## Workflow
 
-- read typescript-boss skill
-- read typescript-reviewer skill
-- then improve $@
+- read all typescript-related skills - typescript-boss, typescript-reviewer
+- then read $@
+- based on skills read, identify improvements and use the todo tool
+- ask user which item(s) to proceed with

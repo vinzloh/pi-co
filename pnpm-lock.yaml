@@ -8,9 +8,18 @@ importers:
 
   .:
     dependencies:
+      '@mariozechner/pi-ai':
+        specifier: ^0.60.0
+        version: 0.60.0(ws@8.19.0)(zod@4.3.6)
       '@mariozechner/pi-coding-agent':
         specifier: ^0.59.0
         version: 0.59.0(ws@8.19.0)(zod@4.3.6)
+      '@mariozechner/pi-tui':
+        specifier: ^0.60.0
+        version: 0.60.0
+      '@sinclair/typebox':
+        specifier: ^0.34.48
+        version: 0.34.48
       picomatch:
         specifier: ^4.0.3
         version: 4.0.3
@@ -267,6 +276,11 @@ packages:
     engines: {node: '>=20.0.0'}
     hasBin: true
 
+  '@mariozechner/pi-ai@0.60.0':
+    resolution: {integrity: sha512-OiMuXQturnEDPmA+ho7eLe4G8plO2z21yjNMs9niQREauoblWOz7Glv58I66KPzczLED4aZTlQLTRdU6t1rz8A==}
+    engines: {node: '>=20.0.0'}
+    hasBin: true
+
   '@mariozechner/pi-coding-agent@0.59.0':
     resolution: {integrity: sha512-oZK+I958kJIpgAHjXQl+GiEctvia7XLYrSCnCi60AbDTrDEg1OCJNlBUXlz1Sex0mKuSZE/BqqCI5smYuLMwOw==}
     engines: {node: '>=20.6.0'}
@@ -274,6 +288,10 @@ packages:
 
   '@mariozechner/pi-tui@0.59.0':
     resolution: {integrity: sha512-LM3TpaD9Lszet5Xj7ad8cbl4wXE7i2gH36zsXZFxik+kA5qcTgOmyP2AhTIZC4ZAkv8KanN8mxK1AUlK7PyEqA==}
+    engines: {node: '>=20.0.0'}
+
+  '@mariozechner/pi-tui@0.60.0':
+    resolution: {integrity: sha512-ZAK5gxYhGmfJqMjfWcRBjB8glITltDbTrYJXvcDtfengbKTZN0p39p5uO5pvUB8/PiAWKTRS06yaNMhf/LG26g==}
     engines: {node: '>=20.0.0'}
 
   '@mistralai/mistralai@1.14.1':
@@ -1574,6 +1592,30 @@ snapshots:
       - ws
       - zod
 
+  '@mariozechner/pi-ai@0.60.0(ws@8.19.0)(zod@4.3.6)':
+    dependencies:
+      '@anthropic-ai/sdk': 0.73.0(zod@4.3.6)
+      '@aws-sdk/client-bedrock-runtime': 3.1010.0
+      '@google/genai': 1.45.0
+      '@mistralai/mistralai': 1.14.1
+      '@sinclair/typebox': 0.34.48
+      ajv: 8.18.0
+      ajv-formats: 3.0.1(ajv@8.18.0)
+      chalk: 5.6.2
+      openai: 6.26.0(ws@8.19.0)(zod@4.3.6)
+      partial-json: 0.1.7
+      proxy-agent: 6.5.0
+      undici: 7.24.4
+      zod-to-json-schema: 3.25.1(zod@4.3.6)
+    transitivePeerDependencies:
+      - '@modelcontextprotocol/sdk'
+      - aws-crt
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+      - ws
+      - zod
+
   '@mariozechner/pi-coding-agent@0.59.0(ws@8.19.0)(zod@4.3.6)':
     dependencies:
       '@mariozechner/jiti': 2.6.5
@@ -1607,6 +1649,16 @@ snapshots:
       - zod
 
   '@mariozechner/pi-tui@0.59.0':
+    dependencies:
+      '@types/mime-types': 2.1.4
+      chalk: 5.6.2
+      get-east-asian-width: 1.5.0
+      marked: 15.0.12
+      mime-types: 3.0.2
+    optionalDependencies:
+      koffi: 2.15.2
+
+  '@mariozechner/pi-tui@0.60.0':
     dependencies:
       '@types/mime-types': 2.1.4
       chalk: 5.6.2
