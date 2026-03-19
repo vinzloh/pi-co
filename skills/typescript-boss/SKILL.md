@@ -1,39 +1,35 @@
 ---
 name: typescript-boss
-description: Use this skill when working with TypeScript files 
+description: Use this skill when working with TypeScript files
 ---
 
 ## Identity
 
-- Local software engineering agent for this development environment and its repositories
-- Optimize for: minimal, correct, maintainable changes
-- Match existing repo conventions unless explicitly told otherwise
+Agent for this dev environment. Optimize for: minimal, correct, maintainable changes. Match existing repo conventions.
 
-## Development Style
+## Development Principles
 
-- Prefer small, validated increments: for behavior changes and bug fixes, use pragmatic red-green-refactor when possible, usually one test at a time
-- For larger features, prefer tracer-bullet delivery: get a thin end-to-end slice working first, then deepen incrementally
-- Do not introduce new conventions solely to satisfy these instructions when the repository already uses a different intentional pattern
+- **Small increments**: Pragmatic red-green-refactor for changes; one test at a time
+- **Tracer bullet**: For larger features, get thin end-to-end slice working first, then deepen
 
-## Code Quality Standards
+## Code Quality
 
- Make minimal, surgical changes
+- **Minimal surgical changes**: Make the smallest change that solves the problem
+- **Respect existing patterns**: Use repo conventions, existing helpers, and established patterns over new abstractions
+- **Parse at boundaries**: Validate inputs at system edges; keep internal states typed and explicit
+- **Make illegal states unrepresentable**: Prefer ADTs/discriminated unions over boolean flags and loosely optional fields
+- **Constrained abstractions**: Keep them pragmatically parameterised, documented when non-obvious
 
-- Parse and validate inputs at boundaries; keep internal states typed and explicit
-- **Make illegal states unrepresentable**; prefer ADTs/discriminated unions over boolean flags and loosely optional fields
-- Prefer existing helpers/patterns over new abstractions
-- **Abstractions**: consciously constrained, pragmatically parameterised, documented when non-obvious
+## Scope Control
 
-## **CRITICAL** Tool Usage Rules **CRITICAL**
+- **Avoid over-engineering**: No features, abstractions, or refactors beyond the task requirement
+- **Simplest solution**: Prefer the simplest general solution that correctly solves the problem
+- **Clean up**: Remove temporary scratch files/helper scripts before finishing unless part of the solution
 
-- NEVER use sed/cat to read a file or a range of a file. Always use the read tool (use offset + limit for ranged reads).
-- You MUST read every file you modify in full before editing.
+## Tool Usage Rules
 
-# Scope Control
-
-- Avoid over-engineering; do not add features, abstractions, configurability, or refactors beyond what the task requires
-- Prefer the simplest general solution that correctly solves the problem
-- If temporary scratch files or helper scripts are created during iteration, remove them before finishing unless they are part of the requested solution
+- **NEVER use sed/cat** to read files or ranges. Always use the `read` tool (use `offset` + `limit` for ranged reads)
+- **MUST read every file in full** before editing
 
 ## Coding Practices
 
@@ -44,7 +40,7 @@ description: Use this skill when working with TypeScript files
 
 ### Destructuring vs Dot Notation
 
-- **Match existing patterns**: Follow the existing codebase convention. Do not introduce destructuring or dot notation changes solely for stylistic preference.
-- **Minimal changes**: When editing existing code, preserve the original access pattern.
-- **Destructuring is appropriate when**: Adding new required properties that would require multiple accesses.
-- **Dot notation is appropriate when**: The existing code uses it, or when accessing multiple nested properties infrequently.
+- **Match existing patterns**: Follow the existing codebase convention; do not change solely for stylistic preference
+- **Minimal changes**: When editing existing code, preserve the original access pattern
+- **Use destructuring when**: Adding new required properties that would require multiple accesses
+- **Use dot notation when**: The existing code uses it, or when accessing multiple nested properties infrequently
