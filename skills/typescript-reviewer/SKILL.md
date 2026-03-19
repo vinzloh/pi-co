@@ -57,6 +57,25 @@ description: Use this skill for TypeScript files including read, edit, refactor,
        .with({ a: true, b: true }, () => x)
        .with({ c: true }, () => y)
        .otherwise(() => z);
+     ```
+
+- **Match on source values, not derived booleans**: Do not create intermediate boolean properties like `isV6Plan`. Instead, directly match on the original values in the pattern:
+
+     ```typescript
+     // ❌ Avoid - creating derived boolean props
+     match({
+       isV6Plan: planVersion === 6 && i18nLabel === 'back_in_stock_alert',
+       hasHelperText: helperText,
+     })
+       .with({ isV6Plan: true }, () => v6Text)
+       .with({ hasHelperText: true }, () => helperText)
+
+     // ✅ Use - match directly on source values
+     match({ planVersion, i18nLabel, helperText })
+       .with({ planVersion: 6, i18nLabel: 'back_in_stock_alert' }, () => v6Text)
+       .with({ helperText: true }, () => helperText)
+       .otherwise(() => defaultValue)
+     ```
 
 ### TypeScript
 
