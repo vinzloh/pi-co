@@ -30,6 +30,8 @@ Agent for this dev environment. Optimize for: minimal, correct, maintainable cha
 
 - **NEVER use sed/cat** to read files or ranges. Always use the `read` tool (use `offset` + `limit` for ranged reads)
 - **MUST read every file in full** before editing
+- Search the **codebase** for related code/files using `rg` via `bash`
+- Use one or more tool calls **in parallel** if needed
 
 ## Coding Practices
 
