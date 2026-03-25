@@ -34,9 +34,20 @@ Body requirements (MUST include):
      2. What action was taken
      3. Verification step (tests pass, typecheck succeeds, etc.)
 
-## Important requirements for commit message
+## Commit Message Requirements
 
-- Do not use quotes, instead use backtick "`"
-- **Always wrap file paths in backticks** - e.g. \`pi-protected-path\`, \`src/utils.ts\`, \`package.json\`
-- Escape backticks with backslash when needed: \`pi-protected-paths\`
-- If `.git/COMMIT_EDITMSG` was used, clean it up after use.
+### Formatting Rules
+
+- **File paths must use backticks** - e.g. `pi-protected-path`, `src/utils.ts`, `package.json`
+- **Do not use double quotes** in commit messages; use single quotes or backticks instead
+
+### Procedural Checklist
+
+Before committing:
+
+- [ ] Verify `git status` shows only the files you intended to change
+- [ ] Keep commits atomic - include only files related to a single logical change
+
+After committing (if `.git/COMMIT_EDITMSG` was used):
+
+- [ ] Clean up the temporary file
