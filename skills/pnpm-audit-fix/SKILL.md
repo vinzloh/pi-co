@@ -20,7 +20,7 @@ This skill attempts to fix dependency vulnerabilities from `pnpm audit`.
   ```json
   "pnpm": {
     "overrides": {
-      "<dependency>": ">=<patched-version>"
+      "<dependency>": "^<patched-version>"
     }
   }
   ```
@@ -33,6 +33,7 @@ This skill attempts to fix dependency vulnerabilities from `pnpm audit`.
 ## Important Notes
 
 - Some vulnerabilities may have multiple parent packages - check `pnpm why` output carefully
+- Use `^` for override versions (not `>=`) to allow patches/minors while protecting against breaking major version changes
 
 ## Relevant files
 
