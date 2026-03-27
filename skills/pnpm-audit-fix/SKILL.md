@@ -13,19 +13,23 @@ This skill attempts to fix dependency vulnerabilities from `pnpm audit`.
 - run `pnpm audit` if required. if there are no vulnerabilities, stop here.
 - In `pnpm-workspace.yaml`, comment out `minimumReleaseAge` line (if present)
 - Identify vulnerable dependency with `pnpm why <dependency>`
-- For top parent dependency from `pnpm why`, run `pnpm up <parent>@latest` and verify with `pnpm audit`
-- If not fixed, try `pnpm audit --fix` first (automatic resolution when available) and verify with `pnpm audit`
-- If still vulnerable, add override to `package.json` under `pnpm.overrides`:
+- If the vulnerable package is a direct dependency in `package.json`, run `pnpm up <pkg>^` to update only minor/patch versions (NEVER major version updates)
+- If the vulnerable package is a transitive dependency (most common), add override to `package.json` under `pnpm.overrides` using the vulnerable version range:
 
   ```json
   "pnpm": {
     "overrides": {
-      "<dependency>": "^<patched-version>"
+      "<pkg>@<vulnerable-range>": "^<patched-version>"
     }
   }
   ```
 
+  Examples:
+  - `"picomatch@<2.3.2": "^2.3.2"` - patches picomatch versions below 2.3.2
+  - `"yaml@>=1.0.0 <1.10.3": "^1.10.3"` - patches yaml versions in the vulnerable range
+
 - Run `pnpm install` to apply overrides and verify with `pnpm audit`
+- If still vulnerable, try `pnpm audit --fix` as a last resort
 - Verify codebase with `pnpm lint`, `pnpm typecheck` (if present in `package.json`)
 - Uncomment `minimumReleaseAge` in `pnpm-workspace.yaml`
 - Make a commit
