@@ -32,7 +32,6 @@ Agent for this dev environment. Optimize for: minimal, correct, maintainable cha
 - **MUST read every file in full** before editing
 - Search the **codebase** for related code/files using `rg` via `bash`
 - Prefer `edit` for existing files. Use `write` only for new files, or after reading an existing file and deciding to replace it end-to-end because most of it is changing.
-- Parallelize independent work when safe, such as reads, searches, checks, or disjoint `edit` calls, including disjoint sections of the same file.
 
 ## Coding Practices
 
