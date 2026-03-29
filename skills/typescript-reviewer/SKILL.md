@@ -92,6 +92,16 @@ const FIELDS = ['id', 'created_at']
 const FIELDS = ['id', 'created_at'] as const
 ```
 
+**Keep literal arrays inline** - do NOT extract to constant variables:
+```typescript
+// ❌ Avoid - extracting to constant
+const VALID_TYPES = ['update', 'import'] as const
+arrayOf(key).includes(VALID_TYPES)
+
+// ✅ Use - inline with as const
+arrayOf(key).includes(['update', 'import'] as const)
+```
+
 ### Complex Types
 Extract complex inline types into dedicated `type` or `interface` declarations
 
