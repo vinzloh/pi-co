@@ -30,6 +30,16 @@ ast-grep scan --rule rules/RULE_NAME.yml <glob-pattern>
 
 ### Apply transformation
 
+Rules must run **sequentially** (not parallel) since later rules depend on file changes from earlier ones:
+
+```bash
+# Run sequentially with &&
+ast-grep scan --rule rules/literal-array-includes.yml --update-all <glob-pattern> && \
+ast-grep scan --rule rules/add-arrayof-import.yml --update-all <glob-pattern>
+```
+
+Or run individually:
+
 ```bash
 ast-grep scan --rule rules/RULE_NAME.yml --update-all <glob-pattern>
 ```
