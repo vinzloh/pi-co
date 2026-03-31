@@ -9,4 +9,3 @@ description: apply ast-grep rules
 ## Workflow
 
 - read ast-grep-apply skill, apply all rules to $@
-- read typescript-boss, typescript-reviewer skills, run `pnpm --silent lint` and `pnpm --silent typecheck`, and fix all issues
