@@ -7,6 +7,10 @@ description: ast-grep rules to perform structural code search and updates.
 
 This directory contains [ast-grep](https://ast-grep.github.io/) rules for structural code search and transformation.
 
+## Prerequisites
+
+- require `ast-grep`. Check `ast-grep --version`. If missing, ask the user to install [ast-grep](https://github.com/ast-grep/ast-grep) and stop here.
+
 ## Available Rules
 
 Rules are in `rules/` sub folder of this directory
@@ -14,6 +18,7 @@ Rules are in `rules/` sub folder of this directory
 | Rule | Description |
 |------|-------------|
 | `literal-array-includes.yml` | Transforms `['a', 'b'].includes(value)` → `arrayOf(value).includes(['a', 'b'])` |
+| `add-arrayof-import.yml` | Adds missing `import { arrayOf } from '@/shared/arrayOf'` when `arrayOf()` is used |
 
 ## Usage
 
@@ -28,5 +33,3 @@ ast-grep scan --rule rules/RULE_NAME.yml <glob-pattern>
 ```bash
 ast-grep scan --rule rules/RULE_NAME.yml --update-all <glob-pattern>
 ```
-
-See [ast-grep documentation](https://github.com/ast-grep/ast-grep) for installation and usage.

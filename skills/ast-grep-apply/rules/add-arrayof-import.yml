@@ -1,0 +1,33 @@
+id: add-arrayof-import
+language: tsx
+
+rule:
+  kind: import_statement
+  pattern: import $$$REST
+  # Only match the first import statement
+  nthChild: 1
+  # Combined not conditions
+  not:
+    any:
+      # This import is the arrayOf import (skip it)
+      - regex: import\s*\{\s*arrayOf\s*\}\s*from\s*['"]@/shared/arrayOf['"]
+      # The file already has the arrayOf import somewhere else (not the first import)
+      - inside:
+          has:
+            kind: import_statement
+            regex: import\s*\{\s*arrayOf\s*\}\s*from\s*['"]@/shared/arrayOf['"]
+            not:
+              nthChild: 1
+            stopBy: end
+          stopBy: end
+  # The file uses arrayOf somewhere
+  inside:
+    has:
+      kind: call_expression
+      pattern: arrayOf($$$ARGS)
+      stopBy: end
+    stopBy: end
+
+fix: |
+  import { arrayOf } from '@/shared/arrayOf';
+  import $$$REST
