@@ -19,6 +19,7 @@ Rules are in `rules/` sub folder of this directory
 |------|-------------|
 | `literal-array-includes.yml` | Transforms `['a', 'b'].includes(value)` → `arrayOf(value).includes(['a', 'b'])` |
 | `add-arrayof-import.yml` | Adds missing `import { arrayOf } from '@/shared/arrayOf'` when `arrayOf()` is used |
+| `react-hooks-direct-import.yml` | Transforms `import { useState } from 'react'` → `import * as React from 'react'` and updates hooks to `React.useState`, `React.useEffect`, etc. |
 
 ## Usage
 

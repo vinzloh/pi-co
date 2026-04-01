@@ -1,0 +1,68 @@
+id: react-namespace-import
+language: tsx
+rule:
+  kind: import_statement
+  pattern: import { $$$IMPORTS } from 'react';
+  has:
+    any:
+      - pattern: useState
+      - pattern: useEffect
+      - pattern: useRef
+      - pattern: useCallback
+      - pattern: useMemo
+    stopBy: end
+fix: import * as React from 'react';
+---
+id: usestate-with-type
+language: tsx
+rule:
+  pattern: useState<$T>($$$ARGS)
+fix: React.useState<$T>($$$ARGS)
+---
+id: usestate-without-type
+language: tsx
+rule:
+  pattern: useState($$$ARGS)
+fix: React.useState($$$ARGS)
+---
+id: useref-with-type
+language: tsx
+rule:
+  pattern: useRef<$T>($$$ARGS)
+fix: React.useRef<$T>($$$ARGS)
+---
+id: useref-without-type
+language: tsx
+rule:
+  pattern: useRef($$$ARGS)
+fix: React.useRef($$$ARGS)
+---
+id: usememo-with-type
+language: tsx
+rule:
+  pattern: useMemo<$T>($$$ARGS)
+fix: React.useMemo<$T>($$$ARGS)
+---
+id: usememo-without-type
+language: tsx
+rule:
+  pattern: useMemo($$$ARGS)
+fix: React.useMemo($$$ARGS)
+---
+id: usecallback-with-type
+language: tsx
+rule:
+  pattern: useCallback<$T>($$$ARGS)
+fix: React.useCallback<$T>($$$ARGS)
+---
+id: usecallback-without-type
+language: tsx
+rule:
+  pattern: useCallback($$$ARGS)
+fix: React.useCallback($$$ARGS)
+---
+id: useeffect-direct-import
+language: tsx
+rule:
+  pattern: useEffect($$$ARGS)
+fix: React.useEffect($$$ARGS)
