@@ -15,6 +15,23 @@ rule:
     stopBy: end
 fix: import * as React from 'react';
 ---
+id: react-default-with-named-import
+language: tsx
+rule:
+  kind: import_statement
+  pattern: import React, { $$$IMPORTS } from 'react';
+  has:
+    any:
+      - pattern: useState
+      - pattern: useEffect
+      - pattern: useRef
+      - pattern: useCallback
+      - pattern: useMemo
+      - pattern: Fragment
+      - pattern: Suspense
+    stopBy: end
+fix: import * as React from 'react';
+---
 id: usestate-with-type
 language: tsx
 rule:
