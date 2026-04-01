@@ -8,7 +8,7 @@ Checkout a new branch if starting from main/master, else stop here.
 
 ```bash
 DEFAULT_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
-git diff --name-only $DEFAULT_BRANCH...HEAD
+git diff --name-only $DEFAULT_BRANCH
 ```
 
 - if there are no git diff changes, summarize session instead
