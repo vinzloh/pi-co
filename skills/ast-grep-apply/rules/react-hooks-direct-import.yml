@@ -10,6 +10,7 @@ rule:
       - pattern: useRef
       - pattern: useCallback
       - pattern: useMemo
+      - pattern: Fragment
     stopBy: end
 fix: import * as React from 'react';
 ---
@@ -66,3 +67,21 @@ language: tsx
 rule:
   pattern: useEffect($$$ARGS)
 fix: React.useEffect($$$ARGS)
+---
+id: fragment-opening-name
+language: tsx
+rule:
+  kind: identifier
+  regex: ^Fragment$
+  inside:
+    kind: jsx_opening_element
+fix: React.Fragment
+---
+id: fragment-closing-name
+language: tsx
+rule:
+  kind: identifier
+  regex: ^Fragment$
+  inside:
+    kind: jsx_closing_element
+fix: React.Fragment
