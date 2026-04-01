@@ -11,6 +11,7 @@ rule:
       - pattern: useCallback
       - pattern: useMemo
       - pattern: Fragment
+      - pattern: Suspense
     stopBy: end
 fix: import * as React from 'react';
 ---
@@ -85,3 +86,21 @@ rule:
   inside:
     kind: jsx_closing_element
 fix: React.Fragment
+---
+id: suspense-opening-name
+language: tsx
+rule:
+  kind: identifier
+  regex: ^Suspense$
+  inside:
+    kind: jsx_opening_element
+fix: React.Suspense
+---
+id: suspense-closing-name
+language: tsx
+rule:
+  kind: identifier
+  regex: ^Suspense$
+  inside:
+    kind: jsx_closing_element
+fix: React.Suspense
