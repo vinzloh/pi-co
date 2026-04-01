@@ -13,6 +13,9 @@ rule:
       - pattern: Fragment
       - pattern: Suspense
     stopBy: end
+  not:
+    follows:
+      pattern: import $$$_ from 'react'
 fix: import * as React from 'react';
 ---
 id: react-default-with-named-import
