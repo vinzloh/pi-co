@@ -31,17 +31,23 @@ ast-grep scan --rule rules/RULE_NAME.yml <glob-pattern>
 
 ### Apply transformation
 
-Rules must run **sequentially in exact order** (not parallel) since later rules depend on file changes from earlier ones. Follow the order in the table above:
+Some rules depend on others and must run **sequentially in order**:
+
+| Sequence | Rules | Description |
+|----------|-------|-------------|
+| Array includes | `literal-array-includes.yml` → `add-arrayof-import.yml` | First transforms array includes to `arrayOf()`, then adds the import |
+
+Sequential rules must use `&&` or run separately in order:
 
 ```bash
-# Run in order with &&
-ast-grep scan --rule rules/RULE_NAME_1.yml --update-all <glob-pattern> && \
-ast-grep scan --rule rules/RULE_NAME_2.yml --update-all <glob-pattern>
+# Run sequence in order
+ast-grep scan --rule rules/literal-array-includes.yml --update-all <glob-pattern> && \
+ast-grep scan --rule rules/add-arrayof-import.yml --update-all <glob-pattern>
 ```
 
-Or run individually in order:
+**Independent rules** (e.g., `react-hooks-direct-import.yml`) can be run standalone or in parallel:
 
 ```bash
-ast-grep scan --rule rules/RULE_NAME_1.yml --update-all <glob-pattern>
-ast-grep scan --rule rules/RULE_NAME_2.yml --update-all <glob-pattern>
+# Run independently
+ast-grep scan --rule rules/react-hooks-direct-import.yml --update-all <glob-pattern>
 ```
