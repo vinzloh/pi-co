@@ -1,5 +1,7 @@
 id: react-namespace-import
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   kind: import_statement
   pattern: import { $$$IMPORTS } from 'react';
@@ -20,6 +22,8 @@ fix: import * as React from 'react';
 ---
 id: react-default-with-named-import
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   kind: import_statement
   pattern: import React, { $$$IMPORTS } from 'react';
@@ -37,60 +41,80 @@ fix: import * as React from 'react';
 ---
 id: usestate-with-type
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   pattern: useState<$T>($$$ARGS)
 fix: React.useState<$T>($$$ARGS)
 ---
 id: usestate-without-type
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   pattern: useState($$$ARGS)
 fix: React.useState($$$ARGS)
 ---
 id: useref-with-type
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   pattern: useRef<$T>($$$ARGS)
 fix: React.useRef<$T>($$$ARGS)
 ---
 id: useref-without-type
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   pattern: useRef($$$ARGS)
 fix: React.useRef($$$ARGS)
 ---
 id: usememo-with-type
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   pattern: useMemo<$T>($$$ARGS)
 fix: React.useMemo<$T>($$$ARGS)
 ---
 id: usememo-without-type
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   pattern: useMemo($$$ARGS)
 fix: React.useMemo($$$ARGS)
 ---
 id: usecallback-with-type
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   pattern: useCallback<$T>($$$ARGS)
 fix: React.useCallback<$T>($$$ARGS)
 ---
 id: usecallback-without-type
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   pattern: useCallback($$$ARGS)
 fix: React.useCallback($$$ARGS)
 ---
 id: useeffect-direct-import
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   pattern: useEffect($$$ARGS)
 fix: React.useEffect($$$ARGS)
 ---
 id: fragment-opening-name
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   kind: identifier
   regex: ^Fragment$
@@ -100,6 +124,8 @@ fix: React.Fragment
 ---
 id: fragment-closing-name
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   kind: identifier
   regex: ^Fragment$
@@ -109,6 +135,8 @@ fix: React.Fragment
 ---
 id: suspense-opening-name
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   kind: identifier
   regex: ^Suspense$
@@ -118,6 +146,8 @@ fix: React.Suspense
 ---
 id: suspense-closing-name
 language: tsx
+ignores:
+  - extensions/**/*
 rule:
   kind: identifier
   regex: ^Suspense$
