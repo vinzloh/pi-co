@@ -25,6 +25,13 @@ language: tsx
 rule:
   pattern: React.useState<$T>($$$ARGS)
 fix: useState<$T>($$$ARGS)
+---
+id: usecontext-with-type
+language: tsx
+rule:
+  pattern: React.createContext<$T>($$$ARGS)
+fix: createContext<$T>($$$ARGS)
+
 
 ---
 id: usestate-without-type
