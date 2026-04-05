@@ -1,0 +1,123 @@
+id: replace-react-reactnode
+language: tsx
+rule:
+  any:
+    - pattern:
+        context: |
+          interface X { prop: React.ReactNode }
+        selector: nested_type_identifier
+    - pattern:
+        context: |
+          type X = React.ReactNode
+        selector: nested_type_identifier
+    - pattern:
+        context: |
+          function x(): React.ReactNode {}
+        selector: nested_type_identifier
+    - pattern:
+        context: |
+          const x: React.ReactNode
+        selector: nested_type_identifier
+fix: ReactNode
+---
+id: usestate-with-type
+language: tsx
+rule:
+  pattern: React.useState<$T>($$$ARGS)
+fix: useState<$T>($$$ARGS)
+
+---
+id: usestate-without-type
+language: tsx
+rule:
+  pattern: React.useState($$$ARGS)
+fix: useState($$$ARGS)
+
+---
+id: useref-with-type
+language: tsx
+rule:
+  pattern: React.useRef<$T>($$$ARGS)
+fix: useRef<$T>($$$ARGS)
+
+---
+id: useref-without-type
+language: tsx
+rule:
+  pattern: React.useRef($$$ARGS)
+fix: useRef($$$ARGS)
+
+---
+id: usememo-with-type
+language: tsx
+rule:
+  pattern: React.useMemo<$T>($$$ARGS)
+fix: useMemo<$T>($$$ARGS)
+
+---
+id: usememo-without-type
+language: tsx
+rule:
+  pattern: React.useMemo($$$ARGS)
+fix: useMemo($$$ARGS)
+
+---
+id: usecallback-with-type
+language: tsx
+rule:
+  pattern: React.useCallback<$T>($$$ARGS)
+fix: useCallback<$T>($$$ARGS)
+
+---
+id: usecallback-without-type
+language: tsx
+rule:
+  pattern: React.useCallback($$$ARGS)
+fix: useCallback($$$ARGS)
+
+---
+id: useeffect-direct-import
+language: tsx
+rule:
+  pattern: React.useEffect($$$ARGS)
+fix: useEffect($$$ARGS)
+
+---
+id: fragment-opening-name
+language: tsx
+rule:
+  kind: member_expression
+  regex: ^React\.Fragment$
+  inside:
+    kind: jsx_opening_element
+fix: Fragment
+
+---
+id: fragment-closing-name
+language: tsx
+rule:
+  kind: member_expression
+  regex: ^React\.Fragment$
+  inside:
+    kind: jsx_closing_element
+fix: Fragment
+
+---
+id: suspense-opening-name
+language: tsx
+rule:
+  kind: member_expression
+  regex: ^React\.Suspense$
+  inside:
+    kind: jsx_opening_element
+fix: Suspense
+
+---
+id: suspense-closing-name
+language: tsx
+rule:
+  kind: member_expression
+  regex: ^React\.Suspense$
+  inside:
+    kind: jsx_closing_element
+fix: Suspense

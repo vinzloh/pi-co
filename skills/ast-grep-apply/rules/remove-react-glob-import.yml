@@ -1,0 +1,11 @@
+id: remove-react-import-tsx
+language: tsx
+rule:
+  pattern: "import * as $_ from 'react'"
+fix: ""
+---
+id: remove-react-import-ts
+language: ts
+rule:
+  pattern: "import * as $_ from 'react'"
+fix: ""
