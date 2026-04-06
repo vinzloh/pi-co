@@ -1,6 +1,5 @@
 id: add-arrayof-import
 language: tsx
-
 rule:
   kind: import_statement
   pattern: import $$$REST
@@ -9,8 +8,6 @@ rule:
   # Combined not conditions
   not:
     any:
-      # This import is the arrayOf import (skip it)
-      - regex: import\s*\{\s*arrayOf\s*\}\s*from\s*['"]@/shared/arrayOf['"]
       # The file already has the arrayOf import somewhere else (not the first import)
       - inside:
           has:
