@@ -1,0 +1,11 @@
+id: react-import-namespace-to-named-tsx
+language: tsx
+rule:
+  pattern: import * as React from 'react'
+fix: import { memo, lazy, createContext, forwardRef, Children, Fragment, ReactNode, Suspense, useContext, useState, useEffect, useRef, useMemo, useCallback, useLayoutEffect, type CSSProperties, type Dispatch, type SetStateAction, type HTMLAttributes, type FunctionComponent, type MouseEventHandler, type MutableRefObject, type BaseSyntheticEvent, type AriaRole, type ComponentProps, type ComponentPropsWithoutRef, type DetailedHTMLProps, type ImgHTMLAttributes, type ReactElement, type ChangeEvent } from 'react'
+---
+id: react-import-namespace-to-named-ts
+language: ts
+rule:
+  pattern: import * as React from 'react'
+fix: import { memo, lazy, createContext, forwardRef, Children, Fragment, ReactNode, Suspense, useContext, useState, useEffect, useRef, useMemo, useCallback, useLayoutEffect, type CSSProperties, type Dispatch, type SetStateAction, type HTMLAttributes, type FunctionComponent, type MouseEventHandler, type MutableRefObject, type BaseSyntheticEvent, type AriaRole, type ComponentProps, type ComponentPropsWithoutRef, type DetailedHTMLProps, type ImgHTMLAttributes, type ReactElement, type ChangeEvent } from 'react'

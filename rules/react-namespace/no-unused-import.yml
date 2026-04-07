@@ -1,0 +1,81 @@
+id: no-react-unused-import-tsx
+language: tsx
+rule:
+  pattern: import { $$$IMPORTS } from 'react'
+rewriters:
+  - id: remove-unused-value-import
+    rule:
+      pattern: $NAMED_IMPORT
+      inside:
+        has:
+          any:
+            - kind: call_expression
+              pattern: $NAMED_IMPORT($$$ARGS)
+            - kind: call_expression
+              pattern: $NAMED_IMPORT<$$$TYPE>($$$ARGS)
+            - kind: jsx_opening_element
+              pattern: <$NAMED_IMPORT
+            - kind: member_expression
+              pattern: $NAMED_IMPORT.
+          stopBy: end
+        stopBy: end
+
+    fix: $NAMED_IMPORT
+  - id: remove-unused-type-import
+    rule:
+      pattern: $NAMED_IMPORT
+      inside:
+        has:
+          any:
+            - kind: type_identifier
+              pattern: $NAMED_IMPORT
+          stopBy: end
+        stopBy: end
+
+    fix: type $NAMED_IMPORT
+transform:
+  NO_UNUSED_IMPORTS:
+    rewrite:
+      rewriters: [remove-unused-value-import, remove-unused-type-import]
+      source: $$$IMPORTS
+      joinBy: ", "  
+fix: import { $NO_UNUSED_IMPORTS } from 'react';
+---
+id: no-react-unused-import-ts
+language: ts
+rule:
+  pattern: import { $$$IMPORTS } from 'react'
+rewriters:
+  - id: remove-unused-value-import
+    rule:
+      pattern: $NAMED_IMPORT
+      inside:
+        has:
+          any:
+            - kind: call_expression
+              pattern: $NAMED_IMPORT($$$ARGS)
+            - kind: call_expression
+              pattern: $NAMED_IMPORT<$$$TYPE>($$$ARGS)
+          stopBy: end
+        stopBy: end
+
+    fix: $NAMED_IMPORT
+  - id: remove-unused-type-import
+    rule:
+      pattern: $NAMED_IMPORT
+      inside:
+        has:
+          any:
+            - kind: type_identifier
+              pattern: $NAMED_IMPORT
+          stopBy: end
+        stopBy: end
+
+    fix: type $NAMED_IMPORT
+transform:
+  NO_UNUSED_IMPORTS:
+    rewrite:
+      rewriters: [remove-unused-value-import, remove-unused-type-import]
+      source: $$$IMPORTS
+      joinBy: ", "  
+fix: import { $NO_UNUSED_IMPORTS } from 'react';

@@ -1,0 +1,44 @@
+
+# # id: namespace-type-identifier
+# # language: tsx
+# # rule:
+# #   kind: nested_type_identifier
+#   # regex: ^React\.
+id: no-react-namespace-call-expression-ts
+language: ts
+rule:
+  pattern: React.$METHOD
+fix: $METHOD
+---
+ 
+id: no-react-namespace-call-expression-tsx
+language: tsx
+rule:
+  pattern: React.$METHOD
+fix: $METHOD
+---
+
+id: no-react-namespace-type-identifier
+language: tsx
+rule:
+  kind: nested_type_identifier
+  pattern: $NESTED_TYPE
+  inside:
+    has:
+      regex: React
+
+rewriters:
+  - id: remove-nested-identifier-module
+    rule:
+      kind: type_identifier
+      pattern: $ID
+    fix: $ID
+
+transform:
+  CLEAN_IMPORTS:
+    rewrite:
+      rewriters: [remove-nested-identifier-module]
+      source: $NESTED_TYPE
+      joinBy: ", "
+
+fix: $CLEAN_IMPORTS

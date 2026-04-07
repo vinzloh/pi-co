@@ -1,0 +1,7 @@
+[tasks.ast]
+run = [
+  "ast-grep scan --rule ~/workspace/vinzloh/pi-co/rules/react-namespace/no-namespace-calls.yml . -U",
+  "ast-grep scan --rule ~/workspace/vinzloh/pi-co/rules/react-namespace/no-namespace-import.yml . -U",
+  "ast-grep scan --rule ~/workspace/vinzloh/pi-co/rules/react-namespace/no-unused-import.yml . -U",
+  #
+]
