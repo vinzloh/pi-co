@@ -1,0 +1,6 @@
+id: no-literal-array-includes
+language: tsx
+rule:
+  pattern: "[$$$ELEMENTS].includes($ARG)"
+fix: |
+  arrayOf($ARG).includes([$$$ELEMENTS])

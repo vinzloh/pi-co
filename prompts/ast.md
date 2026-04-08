@@ -1,5 +1,5 @@
 ---
-description: apply ast-grep rules 
+description: Read ast-grep skill, and perform task
 ---
 
 ## Prerequisites
@@ -8,4 +8,4 @@ description: apply ast-grep rules
 
 ## Workflow
 
-- read ast-grep-apply skill, apply all rules to $@
+- read ast-grep skill, $@
