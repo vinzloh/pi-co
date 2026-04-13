@@ -11,34 +11,25 @@ description: Use this skill for TypeScript files including read, edit, refactor,
 
 ---
 
-## Import Patterns
-
-| Pattern | Use When |
-|---------|----------|
-| `import * as Namespace` | File already uses namespace imports (e.g., `React.useMemo`). **Do not convert** to named imports unless: namespace no longer used, full file rewrite, or user explicitly requests it |
-| Named imports (`import { x }`) | Adding new APIs to files without established namespace patterns |
-
-> Common namespace examples: `import * as React from 'react'`, `import * as RadixDialog from '@radix-ui/react-dialog'`
-
----
-
 ## React Patterns
 
 ### Hooks: Keep Inline
-- **Do not extract** inline hooks (`React.useMemo`, `React.useCallback`) for stylistic preference
+
+- **Do not extract** inline hooks (`useMemo`, `useCallback`) for stylistic preference
 - Keep them inline in object literals, JSX props, or hook configurations
 - Only extract if required for behavior correctness (bug fixes, dependency changes)
 
 ```typescript
 // ✅ Keep as-is
-useForm({ values: { data: React.useMemo(() => compute(), [dep]) } })
+useForm({ values: { data: useMemo(() => compute(), [dep]) } })
 
 // ❌ Don't extract for style alone
-const defaultValues = React.useMemo(() => compute(), [dep])
+const defaultValues = useMemo(() => compute(), [dep])
 useForm({ defaultValues })
 ```
 
 ### Forms: Preserve Patterns
+
 - When a form uses `values` (controlled), maintain it. Don't convert to `defaultValues` for style.
 
 ---
@@ -46,12 +37,14 @@ useForm({ defaultValues })
 ## Control Flow (ts-pattern)
 
 Use `match` from `ts-pattern` when you have:
+
 - 2+ conditional branches
 - Complex conditions with multiple variables  
 - Pattern matching on object properties
 - Need exhaustive checks
 
 **Rules:**
+
 1. **Replace nested ternaries and if/else chains**
 2. **Match on source values**, not derived booleans
 
@@ -73,6 +66,7 @@ match({ planVersion, i18nLabel })
 ## Type Patterns
 
 ### Literal Array Membership
+
 Use `arrayOf` utility (search current folder/subfolders) instead of `.includes()` on literal arrays:
 
 ```typescript
@@ -84,6 +78,7 @@ arrayOf(key).includes(['update', 'import'])
 ```
 
 Add `as const` for precise literal inference:
+
 ```typescript
 // ❌ Widened to string[]
 const FIELDS = ['id', 'created_at']
@@ -93,6 +88,7 @@ const FIELDS = ['id', 'created_at'] as const
 ```
 
 **Keep literal arrays inline** - do NOT extract to constant variables:
+
 ```typescript
 // ❌ Avoid - extracting to constant
 const VALID_TYPES = ['update', 'import'] as const
@@ -103,6 +99,7 @@ arrayOf(key).includes(['update', 'import'] as const)
 ```
 
 ### Complex Types
+
 Extract complex inline types into dedicated `type` or `interface` declarations
 
 ---
