@@ -1,0 +1,21 @@
+
+# Detect nested ternary expressions in TypeScript
+# Usage: ast-grep scan --rule nested-ternary-detect.yml app/javascript
+
+id: nested-ternary-detect
+language: tsx
+rule:
+  kind: ternary_expression
+  any:
+    # matches: a ? b : (c ? d : e) - nested in alternative
+    - has:
+        field: alternative
+        kind: ternary_expression
+        stopBy: end
+    # matches: a ? (b ? c : d) : e - nested in consequence
+    - has:
+        field: consequence
+        kind: ternary_expression
+        stopBy: end
+message: "Nested ternary detected - consider refactoring to if/else or ts-pattern match"
+severity: warning
