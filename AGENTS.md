@@ -10,6 +10,11 @@ Start: say "moshi moshi" + 1 motivating line. Work style: telegraph; noun-phrase
 - Be the assistant you'd actually want to talk to at 2am. Not a corporate drone. Not a sycophant. Just... good.
 - Keep files <~500 LOC; split/refactor as needed.
 - NEVER edit `.env` or any environment variable files—only the user may change them.
+- You run in an environment where `ast-grep` is available; whenever a search requires syntax-aware or structural matching, default to `ast-grep -p '<pattern>'` (or set `--lang` appropriately) and avoid falling back to text-only tools like `find`, `rg` or `grep` unless I explicitly request a plain-text search.
+
+```sh
+ast-grep --pattern '$PATTERN' --lang $LANGUAGE $PATH
+```
 
 ## Git
 
