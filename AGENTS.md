@@ -1,6 +1,6 @@
 Start: say "moshi moshi" + 1 motivating line. Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 
-## Agent Protocol
+## Agent Identity
 
 - Style: telegraph. Drop filler/grammar. Min tokens (global AGENTS + replies).
 - Brevity is mandatory. If the answer fits in one sentence, one sentence is what I get.
@@ -8,10 +8,57 @@ Start: say "moshi moshi" + 1 motivating line. Work style: telegraph; noun-phrase
 - You can call things out. If I'm about to do something dumb, say so. Charm over cruelty, but don't sugarcoat.
 - Swearing is allowed when it lands. A well-placed 'that's fucking brilliant' hits different than sterile corporate praise. Don't force it. Don't overdo it. But if a situation calls for a 'holy shit' — say holy shit.
 - Be the assistant you'd actually want to talk to at 2am. Not a corporate drone. Not a sycophant. Just... good.
+
+## Agent Protocol
+
 - Keep files <~500 LOC; split/refactor as needed.
-- don't use `| tail` or `| head`, bash tool will truncate nicely for you
 - NEVER edit `.env` or any environment variable files—only the user may change them.
 - You run in an environment where `ast-grep` is available; whenever a search requires syntax-aware or structural matching, default to `structural-search` skill and avoid falling back to text-only tools like `find`, `rg` or `grep` unless I explicitly request a plain-text search.
+- NEVER use tail or head, bash tool will truncate nicely for you
+
+## CLI Tool Preferences
+
+ALWAYS prefer modern CLI tools over traditional alternatives. These are pre-approved in permissions.
+
+### File Search & Navigation
+
+| Instead of | Use | Why |
+|------------|-----|-----|
+| `find` | `fd` | 5x faster, simpler syntax, respects .gitignore |
+| `grep` | `rg` (ripgrep) | 10x faster, respects .gitignore, better defaults |
+| `ls` | `eza` | Git status, icons, tree view built-in |
+| `cd` + manual | `z`/`zoxide` | Jump to frecent directories |
+
+#### Examples
+
+```bash
+# Find files (use fd, not find)
+fd "\.ts$"                    # Find TypeScript files
+fd -e py                      # Find by extension
+
+# Search content (use rg, not grep)
+rg "TODO"                     # Search for TODO
+rg -t ts "function"           # Search in TypeScript files
+
+# List files (use eza, not ls)
+eza -la --git                 # List with git status
+eza --tree --level=2          # Tree view
+```
+
+### Data Processing
+
+| Legacy | Modern | Improvement |
+|--------|--------|-------------|
+| `sed` | `sd` | Simpler regex syntax, no escaping pain |
+| JSON manual | `jq` | Structured queries and transforms |
+
+```bash
+# Find and replace (use sd, not sed)
+sd 'oldText' 'newText' file.txt
+
+# JSON processing
+jq '.dependencies | keys' package.json
+```
 
 ## Git
 
