@@ -7,7 +7,6 @@ description: Use this skill for TypeScript files including read, edit, refactor,
 
 - **Never compromise type safety**: No `any`, no non-null assertions (`!`), no unsafe type casts
 - **Check `node_modules`** for external API type definitions instead of guessing
-- **Post-edit verification**: Run `pnpm --silent lint` then `pnpm --silent typecheck`
 
 ---
 

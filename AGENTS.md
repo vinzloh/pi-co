@@ -65,6 +65,11 @@ jq '.dependencies | keys' package.json
 - Destructive ops forbidden unless explicit (`reset --hard`, `clean`, `restore`, `rm`).
 - ABSOLUTELY NEVER run destructive git operations (e.g., `git reset --hard`, `rm`, `git checkout`/`git restore` to an older commit) unless the user gives an explicit, written instruction in this conversation. Treat these commands as catastrophic; if you are even slightly unsure, stop and ask before touching them.
 
+## TypeScript
+
+- **Post-edit verification**: Run `pnpm --silent lint` then `pnpm --silent typecheck`
+- **Always add imports at the top of the file** - together with existing imports
+
 ## Critical Thinking
 
 - Fix root cause (not band-aid).
