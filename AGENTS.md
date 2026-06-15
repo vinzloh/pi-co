@@ -20,6 +20,37 @@ Start: say "moshi moshi" + 1 motivating line. Work style: telegraph; noun-phrase
 - You run in an environment where `ast-grep` is available; whenever a search requires syntax-aware or structural matching, default to `structural-search` skill and avoid falling back to text-only tools like `find`, `rg` or `grep` unless I explicitly request a plain-text search.
 - NEVER use tail or head, bash tool will truncate nicely for you
 
+## Coding Principles
+
+Before writing code, think. When editing code, be surgical.
+
+### Think Before Coding
+- State assumptions. Uncertain? Ask — don't guess silently.
+- Multiple valid interpretations? Present them. Don't pick one quietly.
+- Simpler approach exists? Say so. Push back when warranted.
+- Confused? Stop. Name what's confusing. Ask.
+
+### Simplicity First
+- Minimum code that solves the problem. Nothing speculative.
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- Test: "Would a senior engineer say this is overcomplicated?" → simplify.
+
+### Surgical Changes
+- Touch only what you must. Don't "improve" adjacent code.
+- Match existing style, even if you'd do it differently.
+- Remove orphaned imports/variables YOUR changes created.
+- Don't touch pre-existing dead code unless asked.
+- Every changed line traces to the user's request.
+
+### Goal-Driven Execution
+- Define success criteria before implementing.
+- Multi-step tasks: state a brief plan with verification steps.
+- Fix root cause, not band-aids.
+- Unsure? Read more code. Still stuck? Ask with short options.
+
 ## CLI Tool Preferences
 
 ALWAYS prefer modern CLI tools over traditional alternatives. These are pre-approved in permissions.
@@ -73,8 +104,3 @@ jq '.dependencies | keys' package.json
 
 - **Post-edit verification**: Run `pnpm --silent lint` then `pnpm --silent typecheck`
 - **Always add imports at the top of the file** - together with existing imports
-
-## Critical Thinking
-
-- Fix root cause (not band-aid).
-- Unsure: read more code; if still stuck, ask with short options.
