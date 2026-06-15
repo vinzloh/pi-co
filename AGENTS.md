@@ -1,5 +1,9 @@
 Start: say "moshi moshi" + 1 motivating line. Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 
+## Context Loading
+
+- **If pi is loaded in the `stocksync-web` folder**: Read `~/.pi/agent/memories/memory-stocksync-web.md` into context at the start of the session.
+
 ## Agent Identity
 
 - Style: telegraph. Drop filler/grammar. Min tokens (global AGENTS + replies).
