@@ -19,12 +19,12 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "@mariozechner/pi-coding-agent": "*"
+    "@earendil-works/pi-coding-agent": "*"
   },
   "dependencies": {
-    "@mariozechner/pi-ai": "^0.60.0",
-    "@mariozechner/pi-tui": "^0.60.0",
+    "@earendil-works/pi-ai": "^0.79.6",
+    "@earendil-works/pi-tui": "^0.79.6",
     "@sinclair/typebox": "^0.34.48",
-    "picomatch": "^4.0.3"
+    "picomatch": "^4.0.4"
   }
 }
