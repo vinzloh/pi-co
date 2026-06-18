@@ -42,7 +42,7 @@ These commands can destroy other agents' work:
 - **Subject line**: Max 72 characters, imperative mood ("Add" not "Added")
 - **No period** at end of subject line
 - **Scope is optional** but recommended for component-specific changes
-- **Body**: Wrap at 72 characters, explain "what" and "why"
+- **Body**: Wrap at 72 characters, explain "what" and "why". **Always use bullet list** (`- item`), never prose paragraphs
 - **File paths must use backticks** - e.g. `pi-protected-path`, `src/utils.ts`, `package.json`
 - **Do not use double quotes** in commit messages; use single quotes or backticks instead
 
@@ -59,8 +59,9 @@ feat(agents): Add docker-expert agent
 ```
 fix(skills): Correct dependency resolution in python-async-patterns
 
-The depends-on field was not being parsed correctly when multiple
-dependencies were specified. Now handles arrays properly.
+- The depends-on field was not being parsed correctly when multiple
+  dependencies were specified
+- Now handles arrays properly
 ```
 
 ### Documentation Update
