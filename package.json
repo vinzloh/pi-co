@@ -22,8 +22,6 @@
     "@earendil-works/pi-coding-agent": "*"
   },
   "dependencies": {
-    "@earendil-works/pi-ai": "^0.79.6",
-    "@earendil-works/pi-tui": "^0.79.6",
     "@sinclair/typebox": "^0.34.48",
     "picomatch": "^4.0.4"
   }

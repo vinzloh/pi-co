@@ -1,5 +1,5 @@
 // https://github.com/dmmulroy/.dotfiles/blob/eb569d731584893dc5245502a5eeaf34a7e4c4b8/home/.pi/agent/extensions/whimsical.ts
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 const messages = [
   // Famous People (25)

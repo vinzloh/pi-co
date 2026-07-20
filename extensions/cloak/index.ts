@@ -1,7 +1,7 @@
 // https://github.com/dmmulroy/.dotfiles/blob/eb569d731584893dc5245502a5eeaf34a7e4c4b8/home/.pi/agent/extensions/pi-cloak/index.ts
 
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
-import { getAgentDir } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { getAgentDir } from "@earendil-works/pi-coding-agent";
 import { readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, join, resolve } from "node:path";
