@@ -113,3 +113,50 @@ z.string().min(1).optional() // keep chained .catch() etc.
 3. **Preserve modifier order** — e.g. `.default([]).optional()`, `.optional().catch(undefined)` stay as-is relative to intent.
 4. **Search** — `rg 'z\.undefined\(\)'` in `*.ts` (often `FeedManager/schema.ts`, `types/index.ts`).
 5. **Verify** — `pnpm --silent lint` + `pnpm --silent typecheck` after edits.
+
+## BaseSchema + SuperRefine Split
+
+When a Zod form schema is `z.object(...).superRefine(...)`, and callers need object-schema ops (`.omit`, `.pick`, `.partial`, `.extend`, `.shape`):
+
+### Pattern
+
+1. **Extract object as `baseSchema`**
+```ts
+const baseSchema = z.object({ /* fields */ });
+```
+
+2. **Compose `formSchema` from it**
+```ts
+const formSchema = baseSchema.superRefine((data, ctx) => {
+  // cross-field rules
+});
+```
+
+3. **Split usage by capability**
+| Need | Use |
+|------|-----|
+| Full validation (resolver, submit validate) | `formSchema` |
+| Shape ops (`.omit` / `.pick` / `.partial` / `.extend` / `.shape`) | `baseSchema` |
+| Form value types | `z.infer<typeof formSchema>` (or `baseSchema` — same fields) |
+
+### Why
+
+`superRefine` → `ZodEffects`. No reliable `.omit`/`.pick`. Object ops must hit the plain object schema.
+
+### Anti-pattern
+
+```ts
+// ❌ effects — omit/pick break or vanish
+formSchema.omit({ _derived: true }).parse(values)
+
+// ✅ object schema
+baseSchema.omit({ _derived: true }).parse(values)
+```
+
+### Checklist
+
+- [ ] `baseSchema` = object only
+- [ ] `formSchema` = `baseSchema.superRefine(...)`
+- [ ] resolver → `formSchema`
+- [ ] shape ops → `baseSchema`
+- [ ] types still from `z.infer<typeof formSchema>`
