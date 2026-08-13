@@ -85,3 +85,31 @@ const count = useMemo(() => {
 2. **`.returnType<number>()`** — declares the inner match's return type (required for complex `.with()` branches).
 3. **`.otherwise(() => 0)` on both levels** — outer catches unknown providers, inner catches unhandled feed types.
 4. **Consumption simplifies** — from `obj[provider][feedType]` to a single variable. No need to re-read `currentStore.provider` at usage site.
+
+## Zod: `z.union([T, z.undefined()])` → `.optional()`
+
+Prefer idiomatic Zod `.optional()` over stuffing `z.undefined()` into a union. Same runtime meaning (`T | undefined`), cleaner types/readability.
+
+### Pattern
+
+```ts
+// Before
+z.union([z.object({ /* ... */ }), z.undefined()])
+z.union([A, B, C, z.undefined()])
+z.union([z.array(item).default([]), z.undefined()])
+z.union([z.undefined(), z.string().min(1)])
+
+// After
+z.object({ /* ... */ }).optional()
+z.union([A, B, C]).optional()
+z.array(item).default([]).optional()
+z.string().min(1).optional() // keep chained .catch() etc.
+```
+
+### Rules
+
+1. **Drop the `z.undefined()` arm** — hoist remaining schema(s); chain `.optional()` on the outside.
+2. **Multi-member unions** — keep the `z.union([...])`, then `.optional()` after the closing `)`.
+3. **Preserve modifier order** — e.g. `.default([]).optional()`, `.optional().catch(undefined)` stay as-is relative to intent.
+4. **Search** — `rg 'z\.undefined\(\)'` in `*.ts` (often `FeedManager/schema.ts`, `types/index.ts`).
+5. **Verify** — `pnpm --silent lint` + `pnpm --silent typecheck` after edits.
