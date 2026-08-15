@@ -8,14 +8,14 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 export default function (pi: ExtensionAPI) {
-  const protectedPaths = [".env", ".git/", "node_modules/", "tmp/"];
+  const protectedPaths = [".env", ".git/", "node_modules/"];
 
   pi.on("tool_call", async (event, ctx) => {
     if (event.toolName !== "write" && event.toolName !== "edit") {
       return undefined;
     }
 
-    const aiHint = "- use current folder instead"
+    const aiHint = "";
     const path = event.input.path as string;
     const isProtected = protectedPaths.some((p) => path.includes(p));
 
