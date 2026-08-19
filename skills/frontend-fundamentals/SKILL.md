@@ -3,12 +3,35 @@ name: frontend-fundamentals
 description: Apply Toss Frontend Fundamentals — write easily-modifiable frontend code via readability, predictability, cohesion, and low coupling. Use when writing, reviewing, or refactoring React/frontend components, hooks, or forms.
 metadata:
   sources:
-    https://frontend-fundamentals.com/code-quality/en/code/
+    - https://frontend-fundamentals.com/code-quality/en/code/
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/submit-button.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/login-start-page.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/use-page-state-readability.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/condition-name.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/magic-number-readability.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/user-policy.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/ternary-operator.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/http.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/use-user.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/hidden-logic.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/code-directory.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/magic-number-cohesion.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/form-fields.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/use-page-state-coupling.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/use-bottom-sheet.html
+    - https://frontend-fundamentals.com/code-quality/en/code/examples/item-edit-modal.html
 ---
 
 # Frontend Fundamentals
 
 Good frontend code is **easily modifiable**. Judge changes on four axes. They conflict — pick for the situation, don't max all four.
+
+Full before/after for every example — load only the axis you need:
+
+- [readability](references/readability.md) — 7 pages
+- [predictability](references/predictability.md) — 3 pages
+- [cohesion](references/cohesion.md) — 3 pages
+- [coupling](references/coupling.md) — 3 pages
 
 | Axis | Question |
 |------|----------|
